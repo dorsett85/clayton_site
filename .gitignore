@@ -1,0 +1,6 @@
+# directories to ignore
+.idea/
+
+##### React frontend #####
+node_modules/
+frontend/dist/
