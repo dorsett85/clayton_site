@@ -28,7 +28,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'frontend/src/index.html')
+      template: path.join(__dirname, 'frontend/src/index.html'),
+      favicon: path.join(__dirname, 'frontend/src/assets/img/favicon.png')
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
