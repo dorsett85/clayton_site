@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'frontend/src/index.js'),
@@ -26,6 +27,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'frontend/src/index.html')
+    }),
     new webpack.HotModuleReplacementPlugin()
   ]
 };
