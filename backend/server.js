@@ -11,6 +11,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(HTML_DIR, 'index.html'))
 });
 app.get('/test', (req, res) => {
+  console.log('\n\n***Check\n\n');
   res.json({success: 'this worked'})
 });
 app.listen(PORT, () => {
