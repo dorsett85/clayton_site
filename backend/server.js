@@ -10,8 +10,8 @@ app.use(express.static(HTML_DIR));
 app.get('/', (req, res) => {
   res.sendFile(path.join(HTML_DIR, 'index.html'))
 });
-app.get('/dist', (req, res) => {
-  res.sendFile(path.join(HTML_DIR, 'index.html'))
+app.get('/test', (req, res) => {
+  res.json({success: 'this worked'})
 });
 app.listen(PORT, () => {
   console.log(`Running express app on port ${PORT}`);
