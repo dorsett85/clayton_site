@@ -2,24 +2,44 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
+import {Slide, Zoom} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import BuildIcon from '@material-ui/icons/Build';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
 import {Dialog, DialogContent, DialogTitle, DialogActions} from "@material-ui/core";
 import {List, ListSubheader, ListItem, ListItemIcon, ListItemAvatar, ListItemText} from "@material-ui/core";
-import AssessmentIcon from '@material-ui/icons/Assessment';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import {Card, CardActionArea, CardHeader, CardContent} from '@material-ui/core';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import {yellow, green, blue} from '@material-ui/core/colors';
 import {ArrowLeft as ArrowLeftIcon, ArrowRight as ArrowRightIcon} from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import {withStyles} from '@material-ui/core/styles';
 
+import snowbirdBackground from '../assets/img/snowbird_dark.jpg';
+
+import reactLogo from '../assets/img/react-logo.png';
+import materialUiLogo from '../assets/img/material-ui-logo.png';
+import bootstrapLogo from '../assets/img/bootstrap-solid.svg';
+import djangoLogo from '../assets/img/django-logo-negative.png';
+import nodeLogo from '../assets/img/node-logo.png';
+import laravelLogo from '../assets/img/laravel-l-slant.png';
+import postgresLogo from '../assets/img/PostgreSQL-logo.png';
+import mySqlLogo from '../assets/img/mysql-logo.png';
+import awsLogo from '../assets/img/aws-logo.png';
+import digitalOceanLogo from '../assets/img/DigitalOcean-logo.png';
+
+import quickModelScreen from '../assets/img/quickmodel.png';
+import laughingDogsScreen from '../assets/img/laughingdogs.png';
+import emapScreen from '../assets/img/emap.png';
+
 const styles = theme => ({
   background: {
-    height: '100vh'
+    height: '100vh',
+    backgroundImage: `url(${snowbirdBackground})`,
+    backgroundSize: 'cover'
   },
   gridContainer: {
     height: '100%',
@@ -32,6 +52,8 @@ const styles = theme => ({
     marginBottom: 20
   },
   headerText: {
+    color: '#ffffff',
+    textShadow: '2px 2px 5px #000000, 2px -2px 5px #000000, -2px 2px 5px #000000, -2px -2px 5px #000000',
     [theme.breakpoints.up('xs')]: {
       fontSize: 35,
     },
@@ -45,8 +67,26 @@ const styles = theme => ({
   modalOpenBtnText: {
     paddingLeft: 10
   },
+  logoImg: {
+    borderRadius: 5
+  },
   sampleAppsDiv: {
     marginTop: 12
+  },
+  sampleAppContent: {
+    padding: 0
+  },
+  sampleAppImg: {
+    width: '100%'
+  },
+  yellow: {
+    color: yellow[500]
+  },
+  green: {
+    color: green[500]
+  },
+  blue: {
+    color: blue[500]
   }
 });
 
@@ -83,19 +123,19 @@ const Layout = props => {
             <List subheader={<ListSubheader disableSticky>Frontend Frameworks</ListSubheader>}>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={reactLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'React'}/>
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={materialUiLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'Material-UI'}/>
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={bootstrapLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'Bootstrap'}/>
               </ListItem>
@@ -105,19 +145,19 @@ const Layout = props => {
             <List subheader={<ListSubheader disableSticky>Backend Frameworks</ListSubheader>}>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={djangoLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'Python/Django'}/>
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={nodeLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'Node/Express'}/>
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={laravelLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'PHP/Laravel'}/>
               </ListItem>
@@ -127,13 +167,13 @@ const Layout = props => {
             <List subheader={<ListSubheader disableSticky>Data Storage</ListSubheader>}>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={postgresLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'PostgreSQL'}/>
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={mySqlLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'MySQL'}/>
               </ListItem>
@@ -143,13 +183,13 @@ const Layout = props => {
             <List subheader={<ListSubheader disableSticky>Web Services</ListSubheader>}>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={awsLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'Amazon Web Services'} secondary={'EC2, Lambda, Route 53, etc.'}/>
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar/>
+                  <Avatar src={digitalOceanLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
                 <ListItemText primary={'Digital Ocean'} secondary={'Ubuntu'}/>
               </ListItem>
@@ -165,30 +205,30 @@ const Layout = props => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardActionArea>
+              <CardActionArea onClick={() => props.handleAppClick('https://pymodel.cphillipsdorsett.com')}>
                 <CardHeader subheader={'QuickModel'}/>
-                <CardContent>
-                  Image for QuickModel
+                <CardContent className={classes.sampleAppContent}>
+                  <img src={quickModelScreen} className={classes.sampleAppImg} alt={'QuickModel'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardActionArea>
+              <CardActionArea onClick={() => props.handleAppClick('https://emap.cphillipsdorsett.com')}>
                 <CardHeader subheader={'eMap (in development)'}/>
-                <CardContent>
-                  Image for eMap
+                <CardContent className={classes.sampleAppContent}>
+                  <img src={emapScreen} className={classes.sampleAppImg} alt={'eMap'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardActionArea>
+              <CardActionArea onClick={() => props.handleAppClick('https://www.laughingdogsvt.com')}>
                 <CardHeader subheader={'Laughing Dogs VT'}/>
-                <CardContent>
-                  Image for Laughing Dogs VT
+                <CardContent className={classes.sampleAppContent}>
+                  <img src={laughingDogsScreen} className={classes.sampleAppImg} alt={'laughingdogsvt'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
@@ -197,9 +237,9 @@ const Layout = props => {
       </div>
     )
   } else if (modal.name === 'Visualization') {
-    const chartIcon = (
+    const chartIcon = color => (
       <ListItemIcon>
-        <AssessmentIcon/>
+        <AssessmentIcon className={classes[color]}/>
       </ListItemIcon>
     );
     modal.title = 'Data Visualization';
@@ -213,37 +253,37 @@ const Layout = props => {
           <Grid item xs={12} sm={6}>
             <List subheader={<ListSubheader disableSticky>Javascript</ListSubheader>}>
               <ListItem>
-                {chartIcon} <ListItemText primary={'Highcharts'}/>
+                {chartIcon('yellow')} <ListItemText primary={'Highcharts'}/>
               </ListItem>
               <ListItem>
-                {chartIcon} <ListItemText primary={'Mapbox'}/>
+                {chartIcon('yellow')} <ListItemText primary={'Mapbox'}/>
               </ListItem>
               <ListItem>
-                {chartIcon} <ListItemText primary={'Chart.js'}/>
+                {chartIcon('yellow')} <ListItemText primary={'Chart.js'}/>
               </ListItem>
               <ListItem>
-                {chartIcon} <ListItemText primary={'Plotly'}/>
+                {chartIcon('yellow')} <ListItemText primary={'Plotly'}/>
               </ListItem>
             </List>
           </Grid>
           <Grid item xs={12} sm={6}>
             <List subheader={<ListSubheader disableSticky>Python</ListSubheader>}>
               <ListItem>
-                {chartIcon} <ListItemText primary={'Matplotlib'}/>
+                {chartIcon('green')} <ListItemText primary={'Matplotlib'}/>
               </ListItem>
               <ListItem>
-                {chartIcon} <ListItemText primary={'ReportLab'}/>
+                {chartIcon('green')} <ListItemText primary={'ReportLab'}/>
               </ListItem>
             </List>
             <List subheader={<ListSubheader disableSticky>R</ListSubheader>}>
               <ListItem>
-                {chartIcon} <ListItemText primary={'ggplot2'}/>
+                {chartIcon('blue')} <ListItemText primary={'ggplot2'}/>
               </ListItem>
               <ListItem>
-                {chartIcon} <ListItemText primary={'Leaflet R'}/>
+                {chartIcon('blue')} <ListItemText primary={'Leaflet R'}/>
               </ListItem>
               <ListItem>
-                {chartIcon} <ListItemText primary={'R Markdown'}/>
+                {chartIcon('blue')} <ListItemText primary={'R Markdown'}/>
               </ListItem>
             </List>
           </Grid>
@@ -271,25 +311,29 @@ const Layout = props => {
       <div id={'background'} className={classes.background}>
         <Grid container justify={'center'} className={classes.gridContainer} alignItems={'center'}>
           <Grid item md={6} sm={9} xs={12} className={classes.centerGrid}>
-            <Grid container justify={"center"} className={classes.headerGrid}>
-              <Typography variant={"h3"} className={classes.headerText}>
-                Clayton Phillips-Dorsett
-              </Typography>
-            </Grid>
-            <Grid container spacing={8}>
-              {modalInfo.map((info, i) => (
-                <Grid key={i} item sm={4} xs={12}>
-                  <Button
-                    fullWidth
-                    variant={"contained"}
-                    onClick={() => props.handleToggleModal(i)}
-                  >
-                    {info.btnIcon}
-                    <div className={classes.modalOpenBtnText}>{info.name}</div>
-                  </Button>
-                </Grid>
-              ))}
-            </Grid>
+            <Slide in direction={"down"}>
+              <Grid container justify={"center"} className={classes.headerGrid}>
+                <Typography variant={"h3"} className={classes.headerText}>
+                  Clayton Phillips-Dorsett
+                </Typography>
+              </Grid>
+            </Slide>
+            <Zoom in timeout={500}>
+              <Grid container spacing={8}>
+                {modalInfo.map((info, i) => (
+                  <Grid key={i} item sm={4} xs={12}>
+                    <Button
+                      fullWidth
+                      variant={"contained"}
+                      onClick={() => props.handleToggleModal(i)}
+                    >
+                      {info.btnIcon}
+                      <div className={classes.modalOpenBtnText}>{info.name}</div>
+                    </Button>
+                  </Grid>
+                ))}
+              </Grid>
+            </Zoom>
           </Grid>
         </Grid>
         <Dialog

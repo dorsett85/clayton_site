@@ -15,6 +15,7 @@ export default class App extends React.Component {
     // Bind methods
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleToggleModal = this.handleToggleModal.bind(this);
+    this.handleAppClick = this.handleAppClick.bind(this);
   }
 
   handleButtonClick(e) {
@@ -35,11 +36,16 @@ export default class App extends React.Component {
     })
   }
 
+  handleAppClick(url) {
+    window.open(url, '_blank')
+  }
+
   render() {
     return (
       <Layout
         handleButtonClick={this.handleButtonClick}
         handleToggleModal={this.handleToggleModal}
+        handleAppClick={this.handleAppClick}
         modalNum={this.state.modalNum}
         message={this.state.message}
       />

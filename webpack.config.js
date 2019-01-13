@@ -23,7 +23,16 @@ module.exports = {
         include: path.resolve(__dirname, 'frontend/src'),
         exclude: /node_modules/,
         use: ['babel-loader']
-      }
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
+      },
     ]
   },
   plugins: [
