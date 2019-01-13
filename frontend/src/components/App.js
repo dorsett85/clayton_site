@@ -20,12 +20,10 @@ export default class App extends React.Component {
 
   handleButtonClick(e) {
 
-    fetch('test/')
+    fetch('chartData/')
       .then(response => response.json())
       .then(success => {
-        this.setState({
-          message: success.success
-        })
+        console.log(success.success)
       })
       .catch(error => console.log(error));
   }

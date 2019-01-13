@@ -39,6 +39,7 @@ const styles = theme => ({
   background: {
     height: '100vh',
     backgroundImage: `url(${snowbirdBackground})`,
+    backgroundPosition: 'center',
     backgroundSize: 'cover'
   },
   gridContainer: {
@@ -55,7 +56,7 @@ const styles = theme => ({
     color: '#ffffff',
     textShadow: '2px 2px 5px #000000, 2px -2px 5px #000000, -2px 2px 5px #000000, -2px -2px 5px #000000',
     [theme.breakpoints.up('xs')]: {
-      fontSize: 35,
+      fontSize: 30,
     },
     [theme.breakpoints.up('sm')]: {
       fontSize: 40,
@@ -70,11 +71,11 @@ const styles = theme => ({
   logoImg: {
     borderRadius: 5
   },
-  sampleAppsDiv: {
+  sampleDiv: {
     marginTop: 12
   },
   sampleAppContent: {
-    padding: 0
+    padding: 5
   },
   sampleAppImg: {
     width: '100%'
@@ -104,7 +105,7 @@ const Layout = props => {
     {name: 'Personal', btnIcon: <PersonPinCircleIcon/>}
   ];
 
-  // Populate modal
+  // Populate
   let modal = {
     ...modalInfo[props.modalNum],
     prevModal: props.modalNum === 0 ? modalInfo.length - 1 : props.modalNum - 1,
@@ -185,7 +186,7 @@ const Layout = props => {
                 <ListItemAvatar>
                   <Avatar src={awsLogo} className={classes.logoImg}/>
                 </ListItemAvatar>
-                <ListItemText primary={'Amazon Web Services'} secondary={'EC2, Lambda, Route 53, etc.'}/>
+                <ListItemText primary={'Amazon Web Services'} secondary={'EC2, S3, Lambda, Route 53, etc.'}/>
               </ListItem>
               <ListItem>
                 <ListItemAvatar>
@@ -197,7 +198,7 @@ const Layout = props => {
           </Grid>
         </Grid>
         <Divider/>
-        <Grid container className={classes.sampleAppsDiv} spacing={8}>
+        <Grid container className={classes.sampleDiv} spacing={8}>
           <Grid item xs={12}>
             <Typography variant={"h6"}>
               Sample Applications
@@ -253,7 +254,7 @@ const Layout = props => {
           <Grid item xs={12} sm={6}>
             <List subheader={<ListSubheader disableSticky>Javascript</ListSubheader>}>
               <ListItem>
-                {chartIcon('yellow')} <ListItemText primary={'Highcharts'}/>
+                {chartIcon('yellow')} <ListItemText primary={'Highcharts'} secondary={'See samples below'}/>
               </ListItem>
               <ListItem>
                 {chartIcon('yellow')} <ListItemText primary={'Mapbox'}/>
@@ -288,10 +289,24 @@ const Layout = props => {
             </List>
           </Grid>
         </Grid>
+        <Divider/>
+        <Grid container spacing={8} className={classes.sampleDiv}>
+          <Grid item xs={12}>
+            <Typography variant={"h6"}>
+              Sample Visualizations
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography>High stocks chart</Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography>Wind rose</Typography>
+          </Grid>
+        </Grid>
       </div>
     )
   } else if (modal.name === 'Personal') {
-    modal.title = 'Not Always Working...';
+    modal.title = "I'm not Always Working...";
     modal.content = (
       <div>
         <Typography gutterBottom>
@@ -326,6 +341,7 @@ const Layout = props => {
                       fullWidth
                       variant={"contained"}
                       onClick={() => props.handleToggleModal(i)}
+                      color={"secondary"}
                     >
                       {info.btnIcon}
                       <div className={classes.modalOpenBtnText}>{info.name}</div>
@@ -339,6 +355,7 @@ const Layout = props => {
         <Dialog
           open={Boolean(modal.name)}
           fullWidth
+          fullScreen={window.innerWidth < 600}
           maxWidth={'md'}
           TransitionComponent={ModalTransition}
           onClose={() => props.handleToggleModal(null)}
