@@ -1,16 +1,23 @@
 import React from 'react';
 
+// Custom components
+import Layout from './Layout';
+
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: null
-    }
+      message: null,
+      modalNum: null
+    };
+
+    // Bind methods
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleToggleModal = this.handleToggleModal.bind(this);
   }
 
   handleButtonClick(e) {
-    e.preventDefault();
 
     fetch('test/')
       .then(response => response.json())
@@ -19,18 +26,23 @@ export default class App extends React.Component {
           message: success.success
         })
       })
-      .catch(error => call.error ? call.error(error) : console.log(error));
+      .catch(error => console.log(error));
+  }
+
+  handleToggleModal(modal) {
+    this.setState({
+      modalNum: modal
+    })
   }
 
   render() {
     return (
-      <div>
-        This is a new react app
-        <br/>
-        <button onClick={this.handleButtonClick.bind(this)}>Click</button>
-        <br/>
-        {this.state.message}
-      </div>
+      <Layout
+        handleButtonClick={this.handleButtonClick}
+        handleToggleModal={this.handleToggleModal}
+        modalNum={this.state.modalNum}
+        message={this.state.message}
+      />
     )
   }
 }
