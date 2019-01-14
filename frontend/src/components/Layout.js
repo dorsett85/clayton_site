@@ -71,7 +71,7 @@ const styles = theme => ({
   logoImg: {
     borderRadius: 5
   },
-  sampleDiv: {
+  belowDivider: {
     marginTop: 12
   },
   sampleAppContent: {
@@ -79,6 +79,10 @@ const styles = theme => ({
   },
   sampleAppImg: {
     width: '100%'
+  },
+  chartDiv: {
+    height: 400,
+    marginBottom: 12
   },
   yellow: {
     color: yellow[500]
@@ -198,7 +202,7 @@ const Layout = props => {
           </Grid>
         </Grid>
         <Divider/>
-        <Grid container className={classes.sampleDiv} spacing={8}>
+        <Grid container className={classes.belowDivider} spacing={8}>
           <Grid item xs={12}>
             <Typography variant={"h6"}>
               Sample Applications
@@ -247,6 +251,13 @@ const Layout = props => {
     modal.content = (
       <div>
         <Typography gutterBottom>
+          Extensive application providing insight to stakeholders through technical visualizations
+        </Typography>
+        <button onClick={props.handleButtonClick}>Get chart data</button>
+        <br/>
+        <div id={'stockChart'} className={classes.chartDiv}></div>
+        <Divider/>
+        <Typography gutterBottom className={classes.belowDivider}>
           My programming life began with reporting and data visualization projects in R and I now offer solutions with
           the following libraries:
         </Typography>
@@ -287,20 +298,6 @@ const Layout = props => {
                 {chartIcon('blue')} <ListItemText primary={'R Markdown'}/>
               </ListItem>
             </List>
-          </Grid>
-        </Grid>
-        <Divider/>
-        <Grid container spacing={8} className={classes.sampleDiv}>
-          <Grid item xs={12}>
-            <Typography variant={"h6"}>
-              Sample Visualizations
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography>High stocks chart</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography>Wind rose</Typography>
           </Grid>
         </Grid>
       </div>

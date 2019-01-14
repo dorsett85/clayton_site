@@ -1,4 +1,5 @@
 import React from 'react';
+import Highcharts from 'highcharts/highstock';
 
 // Custom components
 import Layout from './Layout';
@@ -20,10 +21,25 @@ export default class App extends React.Component {
 
   handleButtonClick(e) {
 
+    // Get stock chart data and create chart
     fetch('chartData/')
       .then(response => response.json())
-      .then(success => {
-        console.log(success.success)
+      .then(data => {
+        console.log(data);
+        Highcharts.stockChart('stockChart', {
+          title: {
+            text: 'Closing Prices'
+          },
+          subtitle: {
+            text: data.map(v => v.name).join(', ')
+          },
+          tooltip: {
+            xDateFormat: '%Y-%m-%d',
+            shared: true
+          },
+
+          series: data
+        });
       })
       .catch(error => console.log(error));
   }
