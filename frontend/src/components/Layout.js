@@ -12,6 +12,7 @@ import {List, ListSubheader, ListItem, ListItemIcon, ListItemAvatar, ListItemTex
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import {Card, CardActionArea, CardHeader, CardContent} from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import {yellow, green, blue} from '@material-ui/core/colors';
 import {ArrowLeft as ArrowLeftIcon, ArrowRight as ArrowRightIcon} from '@material-ui/icons';
@@ -79,6 +80,11 @@ const styles = theme => ({
   },
   sampleAppImg: {
     width: '100%'
+  },
+  tickerInputDiv: {
+    display: 'inline-flex',
+    flexWrap: 'wrap',
+    alignItems: 'baseline'
   },
   chartDiv: {
     height: 400,
@@ -253,9 +259,24 @@ const Layout = props => {
         <Typography gutterBottom>
           Extensive application providing insight to stakeholders through technical visualizations
         </Typography>
-        <button onClick={props.handleButtonClick}>Get chart data</button>
-        <br/>
-        <div id={'stockChart'} className={classes.chartDiv}></div>
+        <Grid container>
+          <Grid item xs={12}>
+            <form className={classes.tickerInputDiv} onSubmit={props.makeChart}>
+              <TextField
+                variant={'standard'}
+                label="Enter stock tickers"
+                placeholder="e.g., AAPL, GOOG"
+                helperText={props.tickerHelperText}
+                error={props.tickerInputError}
+                onInput={props.handleTextInput}
+              />
+              <Button type={'submit'} disabled={props.tickerDisabled}>Update</Button>
+            </form>
+          </Grid>
+        </Grid>
+        <Zoom in onEntered={() => props.makeChart()} mountOnEnter unmountOnExit timeout={0}>
+          <div id={'stockChart'} className={classes.chartDiv}></div>
+        </Zoom>
         <Divider/>
         <Typography gutterBottom className={classes.belowDivider}>
           My programming life began with reporting and data visualization projects in R and I now offer solutions with
@@ -265,7 +286,7 @@ const Layout = props => {
           <Grid item xs={12} sm={6}>
             <List subheader={<ListSubheader disableSticky>Javascript</ListSubheader>}>
               <ListItem>
-                {chartIcon('yellow')} <ListItemText primary={'Highcharts'} secondary={'See samples below'}/>
+                {chartIcon('yellow')} <ListItemText primary={'Highcharts'} secondary={'See example above'}/>
               </ListItem>
               <ListItem>
                 {chartIcon('yellow')} <ListItemText primary={'Mapbox'}/>
