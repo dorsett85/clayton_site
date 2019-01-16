@@ -13,7 +13,9 @@ export default class App extends React.Component {
       tickers: '',
       tickerHelperText: '',
       tickerInputError: false,
-      tickerDisabled: true
+      tickerDisabled: true,
+      chartLoading: false,
+      fabAnchorEl: null
     };
 
     // Bind methods
@@ -21,6 +23,7 @@ export default class App extends React.Component {
     this.handleAppClick = this.handleAppClick.bind(this);
     this.handleTextInput = this.handleTextInput.bind(this);
     this.makeChart = this.makeChart.bind(this);
+    this.handleFabClick = this.handleFabClick.bind(this);
   }
 
   handleToggleModal(modal) {
@@ -42,14 +45,14 @@ export default class App extends React.Component {
   validateTextInput() {
     const tickers = this.state.tickers;
     let helperText = '';
-    if (/^[^A-Z]/.test(tickers)) {
-      helperText = 'Must start with uppercase ticker';
-    } else if (/[^A-Z|,|\s]/.test(tickers)) {
-      helperText = 'Must be uppercase and comma/space separated';
+    if (/^[^A-Za-z]/.test(tickers)) {
+      helperText = 'Must start with a letter';
+    } else if (/[^A-Za-z|,|\s]/.test(tickers)) {
+      helperText = 'Only letters and comma/space separated';
     } else if (/,\s?,/.test(tickers)) {
       helperText = 'Remove extra comma';
-    } else if (this.state.tickers.replace(/,/g, '').trim().split(/\s+/).length > 3) {
-      helperText = '3 or fewer tickers allowed'
+    } else if (this.state.tickers.replace(/,/g, ' ').trim().split(/\s+/).length > 4) {
+      helperText = '4 or fewer tickers allowed'
     }
 
     this.setState({
@@ -64,11 +67,12 @@ export default class App extends React.Component {
     if (e) {e.preventDefault();}
 
     // Format the ticker string to send to the backend
-    let tickers = this.state.tickers.replace(/,/g, '').trim().replace(/\s+/g, ',');
+    let tickers = this.state.tickers.replace(/,/g, ' ').trim().replace(/\s+/g, ',').toUpperCase();
 
-    // Disable the update button while the data is fetched
+    // Disable the update button and activate the progress loader while the data is fetched
     this.setState({
-      tickerDisabled: true
+      tickerDisabled: true,
+      chartLoading: true
     });
     fetch(`chartData/${tickers}`)
       .then(response => response.json())
@@ -80,7 +84,7 @@ export default class App extends React.Component {
             text: 'Closing Prices'
           },
           subtitle: {
-            text: data.map(v => v.name).join(', ')
+            text: data.filter(v => v.data.length).map(v => v.name).join(', ')
           },
           tooltip: {
             xDateFormat: '%Y-%m-%d',
@@ -90,19 +94,25 @@ export default class App extends React.Component {
           series: data
         });
 
-        // Now activate the update button only on update clicks
+        // Remove the progress loader
         this.setState({
-          tickerDisabled: !Boolean(e)
+          chartLoading: false
         })
 
       })
       .catch(error => {
         console.log(error);
         this.setState({
-          tickerDisabled: !Boolean(e)
+          chartLoading: false
         })
       });
 
+  }
+
+  handleFabClick(e) {
+      this.setState({
+        fabAnchorEl: e ? e.currentTarget : null
+      })
   }
 
   render() {
@@ -115,7 +125,10 @@ export default class App extends React.Component {
         tickerHelperText={this.state.tickerHelperText}
         tickerInputError={this.state.tickerInputError}
         tickerDisabled={this.state.tickerDisabled}
+        chartLoading={this.state.chartLoading}
         makeChart={this.makeChart}
+        handleFabClick={this.handleFabClick}
+        fabAnchorEl={this.state.fabAnchorEl}
       />
     )
   }

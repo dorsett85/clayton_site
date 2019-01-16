@@ -7,20 +7,25 @@ import Button from '@material-ui/core/Button';
 import BuildIcon from '@material-ui/icons/Build';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
+import {Fab, Popover} from '@material-ui/core';
 import {Dialog, DialogContent, DialogTitle, DialogActions} from "@material-ui/core";
 import {List, ListSubheader, ListItem, ListItemIcon, ListItemAvatar, ListItemText} from "@material-ui/core";
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import {Card, CardActionArea, CardHeader, CardContent} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import {yellow, green, blue} from '@material-ui/core/colors';
 import {ArrowLeft as ArrowLeftIcon, ArrowRight as ArrowRightIcon} from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import {withStyles} from '@material-ui/core/styles';
 
+// Landing page media
+import cpdHeadshot from '../assets/img/cpd-headshot.jpg';
 import snowbirdBackground from '../assets/img/snowbird_dark.jpg';
 
+// Development modal media
 import reactLogo from '../assets/img/react-logo.png';
 import materialUiLogo from '../assets/img/material-ui-logo.png';
 import bootstrapLogo from '../assets/img/bootstrap-solid.svg';
@@ -32,9 +37,16 @@ import mySqlLogo from '../assets/img/mysql-logo.png';
 import awsLogo from '../assets/img/aws-logo.png';
 import digitalOceanLogo from '../assets/img/DigitalOcean-logo.png';
 
+// Visualization modal media
 import quickModelScreen from '../assets/img/quickmodel.png';
 import laughingDogsScreen from '../assets/img/laughingdogs.png';
 import emapScreen from '../assets/img/emap.png';
+import quickModelVideo from '../assets/img/quickmodel-vid.mp4';
+
+// Personal media
+import climbingTahoeScreen from '../assets/img/climbing-tahoe.jpg';
+import snowboardingVtScreen from '../assets/img/snowboarding-vt.jpg';
+import climbingTetonScreen from '../assets/img/climbing-teton.jpg';
 
 const styles = theme => ({
   background: {
@@ -55,7 +67,8 @@ const styles = theme => ({
   },
   headerText: {
     color: '#ffffff',
-    textShadow: '2px 2px 5px #000000, 2px -2px 5px #000000, -2px 2px 5px #000000, -2px -2px 5px #000000',
+    textAlign: 'center',
+    textShadow: '0 0 5px #000000',
     [theme.breakpoints.up('xs')]: {
       fontSize: 30,
     },
@@ -78,13 +91,21 @@ const styles = theme => ({
   sampleAppContent: {
     padding: 5
   },
-  sampleAppImg: {
-    width: '100%'
+  sampleAppHeader: {
+    fontWeight: 1000
+  },
+  sampleMedia: {
+    width: '100%',
+    boxShadow: '0 0 1px #373737'
   },
   tickerInputDiv: {
     display: 'inline-flex',
     flexWrap: 'wrap',
     alignItems: 'baseline'
+  },
+  chartProgress: {
+    position: 'absolute',
+    margin: theme.spacing.unit * 2
   },
   chartDiv: {
     height: 400,
@@ -98,6 +119,22 @@ const styles = theme => ({
   },
   blue: {
     color: blue[500]
+  },
+  tahoeClimbingGrid: {
+    marginTop: 1
+  },
+  fab: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10
+  },
+  cpdHeadshot: {
+    borderRadius: 50,
+    width: 52,
+    height: 52
+  },
+  contactPopoverText: {
+    margin: theme.spacing.unit * 2
   }
 });
 
@@ -175,7 +212,7 @@ const Layout = props => {
             </List>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <List subheader={<ListSubheader disableSticky>Data Storage</ListSubheader>}>
+            <List subheader={<ListSubheader disableSticky>Database</ListSubheader>}>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar src={postgresLogo} className={classes.logoImg}/>
@@ -217,9 +254,9 @@ const Layout = props => {
           <Grid item xs={12} sm={4}>
             <Card>
               <CardActionArea onClick={() => props.handleAppClick('https://pymodel.cphillipsdorsett.com')}>
-                <CardHeader subheader={'QuickModel'}/>
+                <CardHeader subheader={'QuickModel'} classes={{subheader: classes.sampleAppHeader}}/>
                 <CardContent className={classes.sampleAppContent}>
-                  <img src={quickModelScreen} className={classes.sampleAppImg} alt={'QuickModel'}/>
+                  <img src={quickModelScreen} className={classes.sampleMedia} alt={'QuickModel'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
@@ -227,9 +264,9 @@ const Layout = props => {
           <Grid item xs={12} sm={4}>
             <Card>
               <CardActionArea onClick={() => props.handleAppClick('https://emap.cphillipsdorsett.com')}>
-                <CardHeader subheader={'eMap (in development)'}/>
+                <CardHeader subheader={'eMap (in development)'} classes={{subheader: classes.sampleAppHeader}}/>
                 <CardContent className={classes.sampleAppContent}>
-                  <img src={emapScreen} className={classes.sampleAppImg} alt={'eMap'}/>
+                  <img src={emapScreen} className={classes.sampleMedia} alt={'eMap'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
@@ -237,9 +274,9 @@ const Layout = props => {
           <Grid item xs={12} sm={4}>
             <Card>
               <CardActionArea onClick={() => props.handleAppClick('https://www.laughingdogsvt.com')}>
-                <CardHeader subheader={'Laughing Dogs VT'}/>
+                <CardHeader subheader={'Laughing Dogs VT'} classes={{subheader: classes.sampleAppHeader}}/>
                 <CardContent className={classes.sampleAppContent}>
-                  <img src={laughingDogsScreen} className={classes.sampleAppImg} alt={'laughingdogsvt'}/>
+                  <img src={laughingDogsScreen} className={classes.sampleMedia} alt={'laughingdogsvt'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
@@ -256,9 +293,6 @@ const Layout = props => {
     modal.title = 'Data Visualization';
     modal.content = (
       <div>
-        <Typography gutterBottom>
-          Extensive application providing insight to stakeholders through technical visualizations
-        </Typography>
         <Grid container>
           <Grid item xs={12}>
             <form className={classes.tickerInputDiv} onSubmit={props.makeChart}>
@@ -274,14 +308,29 @@ const Layout = props => {
             </form>
           </Grid>
         </Grid>
+        {props.chartLoading && (
+          <CircularProgress size={50} className={classes.chartProgress}/>
+        )}
         <Zoom in onEntered={() => props.makeChart()} mountOnEnter unmountOnExit timeout={0}>
           <div id={'stockChart'} className={classes.chartDiv}></div>
         </Zoom>
         <Divider/>
-        <Typography gutterBottom className={classes.belowDivider}>
-          My programming life began with reporting and data visualization projects in R and I now offer solutions with
-          the following libraries:
-        </Typography>
+        <Grid container justify={"center"} alignItems={"center"} className={classes.belowDivider} spacing={24}>
+          <Grid item xs={12} sm={6}>
+            <video className={classes.sampleMedia} playsInline muted autoPlay loop>
+              <source src={quickModelVideo} type="video/mp4"/>
+            </video>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography gutterBottom>
+              My programming life began with reporting and data visualization projects in R.  Those fundamental skills
+              have led to providing extensive data driven insight to stakeholders through technical visualizations.
+            </Typography>
+            <Typography>
+               I now offer analytic applications with the following libraries:
+            </Typography>
+          </Grid>
+        </Grid>
         <Grid container spacing={8}>
           <Grid item xs={12} sm={6}>
             <List subheader={<ListSubheader disableSticky>Javascript</ListSubheader>}>
@@ -316,7 +365,7 @@ const Layout = props => {
                 {chartIcon('blue')} <ListItemText primary={'Leaflet R'}/>
               </ListItem>
               <ListItem>
-                {chartIcon('blue')} <ListItemText primary={'R Markdown'}/>
+                {chartIcon('blue')} <ListItemText primary={'R Markdown/Shiny'}/>
               </ListItem>
             </List>
           </Grid>
@@ -324,16 +373,28 @@ const Layout = props => {
       </div>
     )
   } else if (modal.name === 'Personal') {
-    modal.title = "I'm not Always Working...";
+    modal.title = "Not Always Working...";
     modal.content = (
       <div>
+        <Grid container justify={"center"}>
+          <Grid item xs={12} sm={10} md={8} className={classes.tahoeClimbingGrid}>
+            <img src={climbingTahoeScreen} className={classes.sampleMedia} alt={'climbingTahoe'}/>
+          </Grid>
+        </Grid>
+        <Typography gutterBottom className={classes.belowDivider}>
+          I grew up in beautiful southern Vermont and continue to enjoy all things active and outdoors.
+        </Typography>
         <Typography gutterBottom>
-          I grew up in beautiful southern Vermont and continue to enjoy all things outdoors. When I'm not developing
-          you can probably find me on a mountain either climbing or snowboarding.
+          When I'm not developing you can probably find me on a mountain climbing or snowboarding.
         </Typography>
-        <Typography>
-          claytonphillipsdorsett@gmail.com
-        </Typography>
+        <Grid container spacing={16} justify={"space-around"} className={classes.belowDivider}>
+          <Grid item xs={12} sm={6}>
+            <img src={snowboardingVtScreen} className={classes.sampleMedia} alt={'snowboardingVt'}/>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <img src={climbingTetonScreen} className={classes.sampleMedia} alt={'climbingTeton'}/>
+          </Grid>
+        </Grid>
       </div>
     )
   }
@@ -345,10 +406,12 @@ const Layout = props => {
         <Grid container justify={'center'} className={classes.gridContainer} alignItems={'center'}>
           <Grid item md={6} sm={9} xs={12} className={classes.centerGrid}>
             <Slide in direction={"down"}>
-              <Grid container justify={"center"} className={classes.headerGrid}>
-                <Typography variant={"h3"} className={classes.headerText}>
-                  Clayton Phillips-Dorsett
-                </Typography>
+              <Grid container className={classes.headerGrid}>
+                <Grid item xs={12}>
+                  <Typography variant={"h3"} className={classes.headerText}>
+                    Clayton Phillips-Dorsett
+                  </Typography>
+                </Grid>
               </Grid>
             </Slide>
             <Zoom in timeout={500}>
@@ -396,6 +459,39 @@ const Layout = props => {
             </Button>
           </DialogActions>
         </Dialog>
+        <Zoom in={props.modalNum === null}>
+          <div>
+            <Fab
+              aria-owns={'contactPopover'}
+              className={classes.fab}
+              onClick={props.handleFabClick}
+            >
+              <Avatar src={cpdHeadshot} className={classes.cpdHeadshot}/>
+            </Fab>
+            <Popover
+              open={Boolean(props.fabAnchorEl)}
+              anchorEl={props.fabAnchorEl}
+              onClose={() => props.handleFabClick()}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'center',
+                horizontal: 'right',
+              }}
+            >
+              <div className={classes.contactPopoverText}>
+                <Typography gutterBottom>
+                  Contact for consulting:
+                </Typography>
+              <Typography>
+                claytonphillipsdorsett@gmail.com
+              </Typography>
+              </div>
+            </Popover>
+          </div>
+        </Zoom>
       </div>
     </React.Fragment>
   )
