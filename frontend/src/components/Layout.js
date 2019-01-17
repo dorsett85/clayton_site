@@ -79,8 +79,16 @@ const styles = theme => ({
       fontSize: 45,
     },
   },
+  modalOpenBtn: {
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[600]
+    },
+    color: theme.palette.common.white,
+  },
   modalOpenBtnText: {
-    paddingLeft: 10
+    paddingLeft: 10,
+    color: theme.palette.common.white
   },
   logoImg: {
     borderRadius: 5
@@ -332,7 +340,7 @@ const Layout = props => {
           </Grid>
         </Grid>
         <Grid container spacing={8}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <List subheader={<ListSubheader disableSticky>Javascript</ListSubheader>}>
               <ListItem>
                 {chartIcon('yellow')} <ListItemText primary={'Highcharts'} secondary={'See example above'}/>
@@ -348,15 +356,7 @@ const Layout = props => {
               </ListItem>
             </List>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <List subheader={<ListSubheader disableSticky>Python</ListSubheader>}>
-              <ListItem>
-                {chartIcon('green')} <ListItemText primary={'Matplotlib'}/>
-              </ListItem>
-              <ListItem>
-                {chartIcon('green')} <ListItemText primary={'ReportLab'}/>
-              </ListItem>
-            </List>
+          <Grid item xs={12} sm={6} md={4}>
             <List subheader={<ListSubheader disableSticky>R</ListSubheader>}>
               <ListItem>
                 {chartIcon('blue')} <ListItemText primary={'ggplot2'}/>
@@ -366,6 +366,16 @@ const Layout = props => {
               </ListItem>
               <ListItem>
                 {chartIcon('blue')} <ListItemText primary={'R Markdown/Shiny'}/>
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <List subheader={<ListSubheader disableSticky>Python</ListSubheader>}>
+              <ListItem>
+                {chartIcon('green')} <ListItemText primary={'Matplotlib'}/>
+              </ListItem>
+              <ListItem>
+                {chartIcon('green')} <ListItemText primary={'ReportLab'}/>
               </ListItem>
             </List>
           </Grid>
@@ -422,10 +432,13 @@ const Layout = props => {
                       fullWidth
                       variant={"contained"}
                       onClick={() => props.handleToggleModal(i)}
-                      color={"secondary"}
+                      // color={"default"}
+                      className={classes.modalOpenBtn}
                     >
                       {info.btnIcon}
-                      <div className={classes.modalOpenBtnText}>{info.name}</div>
+                      <Typography className={classes.modalOpenBtnText}>
+                        {info.name}
+                      </Typography>
                     </Button>
                   </Grid>
                 ))}
