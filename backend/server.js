@@ -15,8 +15,6 @@ app.get('/', (req, res) => {
 // Return data for stock chart
 app.get('/chartData/:tickers?', (req, res) => {
 
-  console.log(req.params);
-
   // Define and loop over stock tickers to retrieve data
   const tickers = req.params.tickers ? req.params.tickers.split(',') : ['ASMB', 'TSRO', 'BPMC'];
   const stockData = [];

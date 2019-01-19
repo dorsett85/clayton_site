@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'frontend/src/index.js'),
@@ -43,3 +44,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ]
 };
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.plugins.push(
+    new CleanWebpackPlugin(['frontend/dist'])
+  )
+}
