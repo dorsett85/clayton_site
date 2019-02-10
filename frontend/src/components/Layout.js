@@ -23,6 +23,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 // Landing page media
 import cpdHeadshot from '../assets/img/cpd-headshot.jpg';
+import githubIcon from '../assets/img/GitHub-Mark-32px.png';
 import snowbirdBackground from '../assets/img/snowbird_dark.jpg';
 
 // Development modal media
@@ -77,6 +78,20 @@ const styles = theme => ({
     },
     [theme.breakpoints.up('lg')]: {
       fontSize: 45,
+    },
+  },
+  subHeaderText: {
+    color: '#ffffff',
+    textAlign: 'center',
+    textShadow: '0 0 5px #000000',
+    [theme.breakpoints.up('xs')]: {
+      fontSize: 15,
+    },
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 18,
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 20,
     },
   },
   modalOpenBtn: {
@@ -142,6 +157,7 @@ const styles = theme => ({
     height: 52
   },
   contactPopoverText: {
+    textAlign: 'center',
     margin: theme.spacing.unit * 2
   }
 });
@@ -418,8 +434,11 @@ const Layout = props => {
             <Slide in direction={"down"}>
               <Grid container className={classes.headerGrid}>
                 <Grid item xs={12}>
-                  <Typography variant={"h3"} className={classes.headerText}>
+                  <Typography className={classes.headerText}>
                     Clayton Phillips-Dorsett
+                  </Typography>
+                  <Typography className={classes.subHeaderText}>
+                    Software Developer
                   </Typography>
                 </Grid>
               </Grid>
@@ -495,12 +514,15 @@ const Layout = props => {
               }}
             >
               <div className={classes.contactPopoverText}>
-                <Typography gutterBottom>
-                  Contact for consulting:
+                <Typography variant={'subtitle1'}>
+                  Contact for consulting
                 </Typography>
-              <Typography>
-                claytonphillipsdorsett@gmail.com
-              </Typography>
+                <Typography gutterBottom>
+                  claytonphillipsdorsett@gmail.com
+                </Typography>
+                <a href={'https://github.com/dorsett85'} target={'_blank'}>
+                  <img src={githubIcon} alt={'github icon'}/>
+                </a>
               </div>
             </Popover>
           </div>
