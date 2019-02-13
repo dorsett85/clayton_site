@@ -78,25 +78,27 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
 
-        // Create the nice chart
-        Highcharts.stockChart('stockChart', {
-          title: {
-            text: 'Closing Prices'
-          },
-          subtitle: {
-            text: data.filter(v => v.data.length).map(v => v.name).join(', ')
-          },
-          tooltip: {
-            xDateFormat: '%Y-%m-%d',
-            shared: true
-          },
-
-          series: data
-        });
-
         // Remove the progress loader
         this.setState({
           chartLoading: false
+        }, () => {
+
+          // Create the nice chart
+          Highcharts.stockChart('stockChart', {
+            title: {
+              text: 'Closing Prices'
+            },
+            subtitle: {
+              text: data.filter(v => v.data.length).map(v => v.name).join(', ')
+            },
+            tooltip: {
+              xDateFormat: '%Y-%m-%d',
+              shared: true
+            },
+
+            series: data
+          });
+
         })
 
       })

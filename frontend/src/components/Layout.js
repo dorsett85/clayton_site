@@ -126,13 +126,14 @@ const styles = theme => ({
     flexWrap: 'wrap',
     alignItems: 'baseline'
   },
-  chartProgress: {
-    position: 'absolute',
+  chartProgressDiv: {
+    height: 400,
     margin: theme.spacing.unit * 2
   },
   chartDiv: {
     height: 400,
-    marginBottom: 12
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 2
   },
   yellow: {
     color: yellow[500]
@@ -333,10 +334,16 @@ const Layout = props => {
           </Grid>
         </Grid>
         {props.chartLoading && (
-          <CircularProgress size={50} className={classes.chartProgress}/>
+          <div className={classes.chartProgressDiv}>
+            <CircularProgress size={50}/>
+          </div>
         )}
         <Zoom in onEntered={() => props.makeChart()} mountOnEnter unmountOnExit timeout={0}>
-          <div id={'stockChart'} className={classes.chartDiv}></div>
+          <div>
+            {!props.chartLoading && (
+              <div id={'stockChart'} className={classes.chartDiv}></div>
+            )}
+          </div>
         </Zoom>
         <Divider/>
         <Grid container justify={"center"} alignItems={"center"} className={classes.belowDivider} spacing={24}>
