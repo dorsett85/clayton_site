@@ -37,11 +37,11 @@ import postgresLogo from '../assets/img/PostgreSQL-logo.png';
 import mySqlLogo from '../assets/img/mysql-logo.png';
 import awsLogo from '../assets/img/aws-logo.png';
 import digitalOceanLogo from '../assets/img/DigitalOcean-logo.png';
+import quickModelScreen from '../assets/img/quickmodel.png';
+import emapScreen from '../assets/img/emap.png';
+import reactSweeperScreen from '../assets/img/reactSweeper.png';
 
 // Visualization modal media
-import quickModelScreen from '../assets/img/quickmodel.png';
-import laughingDogsScreen from '../assets/img/laughingdogs.png';
-import emapScreen from '../assets/img/emap.png';
 import quickModelVideo from '../assets/img/quickmodel-vid.mp4';
 
 // Personal media
@@ -298,10 +298,10 @@ const Layout = props => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardActionArea onClick={() => props.handleAppClick('https://www.laughingdogsvt.com')}>
-                <CardHeader subheader={'Laughing Dogs VT'} classes={{subheader: classes.sampleAppHeader}}/>
+              <CardActionArea onClick={() => props.handleAppClick('https://reactsweeper.laughingdogsvt.com')}>
+                <CardHeader subheader={'ReactSweeper'} classes={{subheader: classes.sampleAppHeader}}/>
                 <CardContent className={classes.sampleAppContent}>
-                  <img src={laughingDogsScreen} className={classes.sampleMedia} alt={'laughingdogsvt'}/>
+                  <img src={reactSweeperScreen} className={classes.sampleMedia} alt={'laughingdogsvt'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
