@@ -298,7 +298,7 @@ const Layout = props => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardActionArea onClick={() => props.handleAppClick('https://reactsweeper.laughingdogsvt.com')}>
+              <CardActionArea onClick={() => props.handleAppClick('https://reactsweeper.cphillipsdorsett.com')}>
                 <CardHeader subheader={'ReactSweeper'} classes={{subheader: classes.sampleAppHeader}}/>
                 <CardContent className={classes.sampleAppContent}>
                   <img src={reactSweeperScreen} className={classes.sampleMedia} alt={'laughingdogsvt'}/>
