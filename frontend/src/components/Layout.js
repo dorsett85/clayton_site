@@ -38,8 +38,9 @@ import mySqlLogo from '../assets/img/mysql-logo.png';
 import awsLogo from '../assets/img/aws-logo.png';
 import digitalOceanLogo from '../assets/img/DigitalOcean-logo.png';
 import quickModelScreen from '../assets/img/quickmodel.png';
-import emapScreen from '../assets/img/emap.png';
 import reactSweeperScreen from '../assets/img/reactSweeper.png';
+import workoutTrackerScreen from '../assets/img/workout-tracker.png';
+import emapScreen from '../assets/img/emap.png';
 
 // Visualization modal media
 import quickModelVideo from '../assets/img/quickmodel-vid.mp4';
@@ -301,7 +302,17 @@ const Layout = props => {
               <CardActionArea onClick={() => props.handleAppClick('https://reactsweeper.cphillipsdorsett.com')}>
                 <CardHeader subheader={'ReactSweeper'} classes={{subheader: classes.sampleAppHeader}}/>
                 <CardContent className={classes.sampleAppContent}>
-                  <img src={reactSweeperScreen} className={classes.sampleMedia} alt={'laughingdogsvt'}/>
+                  <img src={reactSweeperScreen} className={classes.sampleMedia} alt={'reactSweeper'}/>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Card>
+              <CardActionArea onClick={() => props.handleAppClick('https://workout-tracker.cphillipsdorsett.com')}>
+                <CardHeader subheader={'workout-tracker'} classes={{subheader: classes.sampleAppHeader}}/>
+                <CardContent className={classes.sampleAppContent}>
+                  <img src={workoutTrackerScreen} className={classes.sampleMedia} alt={'workout-tracker'}/>
                 </CardContent>
               </CardActionArea>
             </Card>
