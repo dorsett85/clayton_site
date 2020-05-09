@@ -40,6 +40,7 @@ import digitalOceanLogo from '../assets/img/DigitalOcean-logo.png';
 import quickModelScreen from '../assets/img/quickmodel.png';
 import reactSweeperScreen from '../assets/img/reactSweeper.png';
 import workoutTrackerScreen from '../assets/img/workout-tracker.png';
+import tripBuddyScreen from '../assets/img/trip-buddy.png';
 import emapScreen from '../assets/img/emap.png';
 
 // Visualization modal media
@@ -314,6 +315,16 @@ const Layout = props => {
                 <CardContent className={classes.sampleAppContent}>
                   <img src={workoutTrackerScreen} className={classes.sampleMedia} alt={'workout-tracker'}/>
                 </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Card>
+              <CardActionArea onClick={() => props.handleAppClick('https://trip-buddy.cphillipsdorsett.com')}>
+                <CardHeader subheader={'trip-buddy'} classes={{subheader: classes.sampleAppHeader}}/>
+                  <CardContent className={classes.sampleAppContent}>
+                    <img src={tripBuddyScreen} className={classes.sampleMedia} alt={'trip-buddy'}/>
+                  </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
